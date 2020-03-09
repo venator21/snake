@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 
 clock = pygame.time.Clock()
-clock.tick(20)
+
 
 
 display_width = 500 
@@ -31,3 +31,16 @@ def display_apple(display,apple_position, apple):
 
 display_snake(snake_position)
 pygame.display.update()
+
+while 1:
+	clock.tick(20)
+	if snake_head[0]<500:
+		pass
+	else:
+		snake_head[0] = 0
+	snake_head[0] += 10
+	snake_position.insert(0,list(snake_head))
+	snake_position.pop()
+	display.fill(window_color)   
+	display_snake(snake_position)
+	pygame.display.update()
