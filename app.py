@@ -8,42 +8,47 @@ class App:
 	
 	def __init__(self):
 		pygame.init()
-		self.prev_button_direction = 1
-		self.button_direction = 1
+		self.prev_direction = 1
+		self.direction = 1
 		self.display = pygame.display.set_mode((self.display_width,self.display_height))
-		
+
+	def key_event(self):
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:  # Check if user hit the red x
+				pygame.quit()
+			
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_LEFT and self.prev_direction != 1:
+					self.direction = 0
+				elif event.key == pygame.K_RIGHT and self.prev_direction != 0:
+					self.direction = 1
+				elif event.key == pygame.K_UP and self.prev_direction != 2:
+					self.direction = 3
+				elif event.key == pygame.K_DOWN and self.prev_direction != 3:
+					self.direction = 2
+				else:
+					self.direction = self.direction
+					
+				self.prev_direction = self.direction
+					
+					
+	def draw_display (self, snake, apple):
+		""" Function doc """
+		self.display.fill(self.window_color) 
+		snake.display_snake(self.display)
+		apple.display_apple(self.display)
+		pygame.display.update()
+			
+			
 	def play(self, snake, apple):
 		while 1:
 			self.clock.tick(20)
-			if snake.snake_head[0]<500:
-				pass
-			else:
-				snake.snake_head[0] = 0
-			if snake.snake_head[1]<500:
-				pass
-			else:
-				snake.snake_head[1] = 0
-			for event in pygame.event.get():
-				if event.type == pygame.KEYDOWN:
-					if event.key == pygame.K_LEFT and self.prev_button_direction != 1:
-						self.button_direction = 0
-					elif event.key == pygame.K_RIGHT and self.prev_button_direction != 0:
-						self.button_direction = 1
-					elif event.key == pygame.K_UP and self.prev_button_direction != 2:
-						self.button_direction = 3
-					elif event.key == pygame.K_DOWN and self.prev_button_direction != 3:
-						self.button_direction = 2
-					else:
-						self.button_direction = self.button_direction
-			self.prev_button_direction = self.button_direction
-			snake.snake_move(self.button_direction)		
-			# ~ snake.snake_head[0] += 10
-			snake.snake_starting_position.insert(0,list(snake.snake_head))
-			snake.snake_starting_position.pop()
+			self.key_event()
+			snake.snake_move(self.direction)		
 			self.display.fill(self.window_color)   
-			snake.display_snake(self.display)
-			apple.display_apple(self.display)
-			pygame.display.update()
+			self.draw_display(snake, apple)
 			
-		
+
+
+			
 

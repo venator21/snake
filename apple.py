@@ -1,14 +1,14 @@
 import pygame
+import random
 
 class Apple:
-	green = (0,100,0)
-	apple_position = [300,300] 
-	
 	
 	def __init__(self):
-		self.green = (0,255,0)
-		self.apple_position = [300,300] 		
+		self.color = (255,0,0) #red
+		self.apple_position = [random.randrange(1,50)*10, random.randrange(1,50)*10] 		
 			
 	def display_apple(self, display):
-		pygame.draw.rect(display,self.green,pygame.Rect(self.apple_position[0],self.apple_position[1],10,10))
+		pygame.draw.rect(display,self.color,pygame.Rect(self.apple_position[0],self.apple_position[1],10,10))
+		
+	
 				
