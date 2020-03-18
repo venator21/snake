@@ -26,6 +26,14 @@ class Snake:
 		self.snake_position.insert(0,list(self.snake_head))
 		self.snake_position.pop()
 
+
+	def collision_with_boundaries(self):
+		if self.snake_head[0]>=500 or self.snake_head[0]<0 or self.snake_head[1]>=500 or self.snake_head[1]<0 :
+			return 1
+		else:
+			return 0
+			
+		
 	def collision_with_self(self):
 			if self.snake_head in self.snake_position[1:]:
 				return True

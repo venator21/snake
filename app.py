@@ -14,6 +14,7 @@ class App:
 		self.final_score = 0
 		self.display = pygame.display.set_mode((self.display_width,self.display_height))
 
+
 	def key_event(self):
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:  # Check if user hit the red x
@@ -35,13 +36,13 @@ class App:
 					
 					
 	def draw_display (self, snake, apple):
-		""" Function doc """
 		self.display.fill(self.window_color) 
 		snake.display_snake(self.display)
 		apple.display_apple(self.display)
 		pygame.display.update()
 			
-	def display_final_score(self):
+			
+	def display_score(self):
 		largeText = pygame.font.Font('freesansbold.ttf',35)
 		TextSurf = largeText.render('Your Score is: ' + str(self.final_score), True, (0, 0, 0))
 		TextRect = TextSurf.get_rect()
@@ -50,10 +51,13 @@ class App:
 		pygame.display.update()
 		time.sleep(2)
 		
+		
 	def play(self, snake, apple):
 		while 1:
 			self.clock.tick(20)
 			self.key_event()
+			if snake.collision_with_boundaries():
+				break
 			if snake.collision_with_self():
 				break
 			if snake.collision_with_apple(apple):
@@ -63,7 +67,7 @@ class App:
 			snake.snake_move(self.direction)		
 			self.display.fill(self.window_color)   
 			self.draw_display(snake, apple)
-		self.display_final_score()
+		self.display_score()
 		pygame.quit()
 
 
