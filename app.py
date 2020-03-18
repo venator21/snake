@@ -53,7 +53,7 @@ class App:
 		
 		
 	def play(self, snake, apple):
-		while 1:
+		while True:
 			self.clock.tick(20)
 			self.key_event()
 			if snake.collision_with_boundaries():
