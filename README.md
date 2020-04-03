@@ -1,2 +1,2 @@
 # snake
-Snake game in python using pygame with OOP
+Snake game in python using pygame with OOP principles
